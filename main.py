@@ -1,6 +1,8 @@
 import sys
 import Models.user as UserModel
 from Models.taxi import Taxi
+from Services.bookingService import BookingService
+from Services.taxiService import TaxiService
 from Services.userService import UserService
 from Services.adminService import AdminService
 from Exceptions.ChoiceException import ChoiceException
@@ -45,6 +47,7 @@ def main():
             print(e)
 
 def userOperations(LoggedUser,userServiceObject):
+    TaxiServiceObject=TaxiService()
     while True:
         print("1. Search Taxi")
         print("2. Profile")
@@ -53,7 +56,10 @@ def userOperations(LoggedUser,userServiceObject):
         choice=int(input("Enter the choice : "))
         match choice:
             case 1:
-                pass
+                pickUpLocation=input("Enter the pick-up location : ")
+                dropLocation=input("Enter the drop location : ")
+                List=TaxiServiceObject.getTaxisByLocation(pickUpLocation)
+                bookingOperations(LoggedUser,List,pickUpLocation,dropLocation)
             case 2:
                 user = userServiceObject.getProfile(LoggedUser)
                 print(f"Id : {user.get_id()}")
@@ -90,6 +96,31 @@ def adminOperations(admin,userServiceObject,adminServiceObject):
             print("Enter only the numbers")
         except ChoiceException as e:
             print(e)
+
+def bookingOperations(user,List,pickUpLocation,dropLocation):
+    BookingServiceObject=BookingService()
+    while True:
+        print("1. Show all taxies")
+        print("2. Go back")
+
+        choice=int(input("Enter the choice : "))
+        match choice:
+            case 1:
+                for taxi in List:
+                    print(f"Id : {taxi.get_taxiId()}\nName : {taxi.get_taxiName()}")
+                print("1. Start booking")
+                print("2. Cancel and go back")
+
+                number = int(input("Enter the number : "))
+                match number:
+                    case 1:
+                        taxiId=int(input("Enter the taxi Id : "))
+                        BookingServiceObject.bookTaxi(pickUpLocation,dropLocation,user,taxiId)
+                    case 2:
+                        return
+                    
+            case 2:
+                return
 
 if __name__=="__main__":
     main()
