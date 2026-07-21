@@ -20,6 +20,11 @@ class UserService:
         else:
             print("User not found")
 
+    def getProfile(self,Loggeduser):
+        for user in self.users.values():
+            if user.get_id() == Loggeduser.get_id():
+                return user
+
     def allUsers(self):
         for user in self.users.values():
             print(f"{user.get_id()} {user.get_name()} ")
