@@ -1,4 +1,6 @@
-class UserService:
+from abc import ABC, abstractmethod
+from Interfaces.UserOperationInterface import UserOperationInterface
+class UserService(UserOperationInterface):
     users={}
     def __init__(self):
         pass
