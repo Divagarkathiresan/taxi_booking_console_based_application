@@ -16,6 +16,7 @@ class UserService(UserOperationInterface):
             if phoneNumber == user.get_phoneNumber():
                 flag=True
                 Loggeduser=user
+                break
         if flag:
             print("Login Successfull ")
             return Loggeduser

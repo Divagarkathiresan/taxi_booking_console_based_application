@@ -10,7 +10,7 @@ from Models.admin import Admin
 def main():
     userServiceObject=UserService()
     adminServiceObject=AdminService()
-    admin=Admin("Admin",20,"1234567890","admin1@gmail.com","admin")
+    admin=Admin("Admin",20,"1234","admin1@gmail.com","admin")
     userServiceObject.register(admin)
     
     while True:
@@ -116,6 +116,7 @@ def bookingOperations(user,List,pickUpLocation,dropLocation):
                     case 1:
                         taxiId=int(input("Enter the taxi Id : "))
                         BookingServiceObject.bookTaxi(pickUpLocation,dropLocation,user,taxiId)
+                        return
                     case 2:
                         return
                     
