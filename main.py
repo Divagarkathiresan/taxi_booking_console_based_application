@@ -58,13 +58,10 @@ def userOperations(LoggedUser,userServiceObject):
             case 1:
                 pickUpLocation=input("Enter the pick-up location : ")
                 dropLocation=input("Enter the drop location : ")
-                List=TaxiServiceObject.getTaxisByLocation(pickUpLocation)
-                bookingOperations(LoggedUser,List,pickUpLocation,dropLocation)
+                TaxiServiceObject.MakeTaxiListByLocation(pickUpLocation)
+                bookingOperations(LoggedUser,pickUpLocation,dropLocation,TaxiServiceObject)
             case 2:
-                user = userServiceObject.getProfile(LoggedUser)
-                print(f"Id : {user.get_id()}")
-                print(f"Name : {user.get_name()}")
-                print(f"Phone number : {user.get_phoneNumber()}")
+                userServiceObject.getProfile(LoggedUser)
             case 3:
                 return
 
@@ -84,10 +81,7 @@ def adminOperations(admin,userServiceObject,adminServiceObject):
                         taxi=Taxi(name,location)
                         adminServiceObject.addTaxi(taxi)
                     case 3:
-                        user = userServiceObject.getProfile(admin)
-                        print(f"Id : {user.get_id()}")
-                        print(f"Name : {user.get_name()}")
-                        print(f"Phone number : {user.get_phoneNumber()}")
+                        userServiceObject.getProfile(admin)
                     case 4:
                         return
             else:
@@ -97,7 +91,7 @@ def adminOperations(admin,userServiceObject,adminServiceObject):
         except ChoiceException as e:
             print(e)
 
-def bookingOperations(user,List,pickUpLocation,dropLocation):
+def bookingOperations(user,pickUpLocation,dropLocation,taxiServiceObject):
     BookingServiceObject=BookingService()
     while True:
         print("1. Show all taxies")
@@ -106,8 +100,8 @@ def bookingOperations(user,List,pickUpLocation,dropLocation):
         choice=int(input("Enter the choice : "))
         match choice:
             case 1:
-                for taxi in List:
-                    print(f"Id : {taxi.get_taxiId()}\nName : {taxi.get_taxiName()}")
+                #Show all taxies by location
+                taxiServiceObject.ListOfAllTaxisByLocation(pickUpLocation)
                 print("1. Start booking")
                 print("2. Cancel and go back")
 

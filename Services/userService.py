@@ -24,9 +24,10 @@ class UserService(UserOperationInterface):
             print("User not found")
 
     def getProfile(self,Loggeduser):
-        for user in self.users.values():
-            if user.get_id() == Loggeduser.get_id():
-                return user
+        user = self.users[Loggeduser.get_id()]
+        print(f"Id : {user.get_id()}")
+        print(f"Name : {user.get_name()}")
+        print(f"Phone number : {user.get_phoneNumber()}")
 
     def allUsers(self):
         for user in self.users.values():

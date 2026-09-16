@@ -10,4 +10,4 @@ class BookingService:
                 self.bookings[booking.get_id()]=booking
                 taxi.set_taxiLocation(droplocation)
                 print("Taxi Booked !!! ")
-                print(f"You arrived at your location : ,{droplocation}")
+                print(f"You arrived at your location : {droplocation}")
