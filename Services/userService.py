@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import override
 from Interfaces.UserOperationInterface import UserOperationInterface
 class UserService(UserOperationInterface):
     users={}
@@ -23,6 +24,7 @@ class UserService(UserOperationInterface):
         else:
             print("User not found")
 
+    @override
     def getProfile(self,Loggeduser):
         user = self.users[Loggeduser.get_id()]
         print(f"Id : {user.get_id()}")

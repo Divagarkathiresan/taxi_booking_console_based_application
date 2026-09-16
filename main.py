@@ -81,7 +81,7 @@ def adminOperations(admin,userServiceObject,adminServiceObject):
                         taxi=Taxi(name,location)
                         adminServiceObject.addTaxi(taxi)
                     case 3:
-                        userServiceObject.getProfile(admin)
+                        adminServiceObject.getProfile(admin)
                     case 4:
                         return
             else:
